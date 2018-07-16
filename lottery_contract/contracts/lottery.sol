@@ -6,6 +6,7 @@ pragma solidity^0.4.17;
 contract Lottery {
     // declares all the instance variables (and their types) that will exist in the contract;
     address public manager;
+    address public winner;
     address[] public players;
     
     
@@ -29,7 +30,8 @@ contract Lottery {
     function pickWinner() public restrictedToManager {
         
         uint index = random() % players.length;
-        players[index].transfer(this.balance); // take all money in contract and send to player
+        winner = players[index];
+        winner.transfer(this.balance); // take all money in contract and send to player
         players = new address[](0);
     }
     
